@@ -68,7 +68,7 @@ function fmt(s) {
 function updateDisplay() {
     display.textContent = fmt(remaining);
     fill.style.width = (remaining / totalSeconds * 100) + '%';
-    document.title = fmt(remaining) + ' · Pomodoro';
+    document.title = fmt(remaining) + ' · Pomodori - Pomodoro Timer';
 }
 
 function updateDots() {
