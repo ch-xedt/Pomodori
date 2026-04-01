@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pomodori - Pomodoro Timer</title>
+    <link rel="preconnect" href="https://fonts.bunny.net">
+    <link href="https://fonts.bunny.net/css?family=jetbrains-mono:100,100i,200,200i,300,300i,400,500,600,700" rel="stylesheet" />
+    <link rel="icon" type="image/x-icon" href="PomoIcon.ico"> 
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    
+    <div class="screen">
+        <div class="workplace" id="workplace">
+            <div class="timerdiv">
+
+                <button class="btn-settings" id="btnSettings" title="settings">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/>
+                    </svg>
+                </button>
+
+                <div class="settings-panel" id="settingsPanel">
+                    <div class="settings-title">timer settings</div>
+                    <div class="settings-rows">
+                        <div class="settings-row">
+                            <label>pomodoro</label>
+                            <div style="display:flex;align-items:center;gap:6px;">
+                                <input type="number" id="setPomo" min="1" max="99" value="25">
+                                <span>min</span>
+                            </div>
+                        </div>
+                        <div class="settings-row">
+                            <label>short break</label>
+                            <div style="display:flex;align-items:center;gap:6px;">
+                                <input type="number" id="setShort" min="1" max="99" value="5">
+                                <span>min</span>
+                            </div>
+                        </div>
+                        <div class="settings-row">
+                            <label>long break</label>
+                            <div style="display:flex;align-items:center;gap:6px;">
+                                <input type="number" id="setLong" min="1" max="99" value="15">
+                                <span>min</span>
+                            </div>
+                        </div>
+                        <div class="settings-row">
+                            <label>volume</label>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <input type="range" id="setVolume" min="0" max="100" value="80">
+                                <span id="volumeLabel">80%</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="settings-actions">
+                        <button class="btn-settings-cancel" id="btnSettingsCancel">cancel</button>
+                        <button class="btn-settings-save" id="btnSettingsSave">save</button>
+                    </div>
+                </div>
+
+                <div class="mode-tabs">
+                    <button class="mode-btn active" data-mode="pomodoro">pomodoro</button>
+                    <button class="mode-btn" data-mode="short">short break</button>
+                    <button class="mode-btn" data-mode="long">long break</button>
+                </div>
+
+                <div class="timer-label" id="timerLabel">focus</div>
+
+                <div class="timer-display" id="timerDisplay">25:00</div>
+
+                <div class="progress-track">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+
+                <div class="controls">
+                    <button class="btn-reset" id="btnReset">reset</button>
+                    <button class="btn-start" id="btnStart">start</button>
+                </div>
+
+                <div class="session-dots" id="sessionDots">
+                    <div class="dot done"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                    <div class="dot"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+  <script src="script.js"></script>
+
+</body>
+</html>
