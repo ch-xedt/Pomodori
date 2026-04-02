@@ -47,6 +47,7 @@
 body {
     margin: 0;
     font-family: 'JetBrains Mono', monospace;
+    user-select: none;
 }
 
 .screen {
