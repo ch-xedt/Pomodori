@@ -10,12 +10,23 @@ let currentMode    = 'pomodoro';
 let totalSeconds   = MODES.pomodoro.seconds;
 let remaining      = totalSeconds;
 let running        = false;
-let rafId          = null;
+let timerId        = null;
 let startTime      = null;
 let startRemaining = 0;
 let sessionsTotal  = 0;
 let volume         = 0.8;
 let currentAudio = null;
+let timerWorker  = null;
+
+
+if (window.Worker) {
+    timerWorker = new Worker('timerWorker.js');
+    timerWorker.onmessage = function(e) {
+        if (e.data === 'tick' && running) {
+            tick();
+        }
+    };
+}
 
 const workplace         = document.getElementById('workplace');
 const display           = document.getElementById('timerDisplay');
@@ -77,7 +88,8 @@ function updateDots() {
     });
 }
 
-function loop(now) {
+function tick() {
+    const now = performance.now();
     const elapsed = Math.floor((now - startTime) / 1000);
     remaining = Math.max(startRemaining - elapsed, 0);
     updateDisplay();
@@ -85,13 +97,14 @@ function loop(now) {
     if (remaining <= 0) {
         stopTimer();
         handleComplete();
-        return;
     }
-    rafId = requestAnimationFrame(loop);
 }
 
 function stopTimer() {
-    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+    if (timerWorker) {
+        timerWorker.postMessage('stop');
+    }
+    if (timerId) { clearInterval(timerId); timerId = null; }
     running = false;
     btnStart.textContent = 'start';
     document.title = 'Pomodoro';
@@ -103,14 +116,26 @@ const sounds = [
     "sounds/sound3.mp3",
     "sounds/sound4.mp3",
     "sounds/sound5.mp3",
-    "sounds/sound6.mp3",
 ];
-function handleComplete() {
-    const randomIndex = Math.floor(Math.random() * sounds.length);
 
-    currentAudio = new Audio(sounds[randomIndex]);
+const audioObjects = sounds.map(src => {
+    const a = new Audio(src);
+    a.preload = 'auto';
+    return a;
+});
+
+function handleComplete() {
+    const randomIndex = Math.floor(Math.random() * audioObjects.length);
+    currentAudio = audioObjects[randomIndex];
     currentAudio.volume = volume;
-    currentAudio.play();
+    currentAudio.currentTime = 0;
+    
+    const playPromise = currentAudio.play();
+    if (playPromise !== undefined) {
+        playPromise.catch(error => {
+            console.log("Wiedergabe im Hintergrund verzögert oder blockiert:", error);
+        });
+    }
 
     if (currentMode === 'pomodoro') {
         sessionsTotal = (sessionsTotal + 1) % (MAX_SESSIONS + 1);
@@ -145,7 +170,11 @@ btnStart.addEventListener('click', () => {
         startRemaining = remaining;
         startTime      = performance.now();
         btnStart.textContent = 'pause';
-        rafId = requestAnimationFrame(loop);
+        if (timerWorker) {
+            timerWorker.postMessage('start');
+        } else {
+            timerId = setInterval(tick, 1000);
+        }
     }
 });
 
