@@ -111,11 +111,9 @@ function stopTimer() {
 }
 
 const sounds = [
-    "sounds/sound1.mp3",
-    "sounds/sound2.mp3",
-    "sounds/sound3.mp3",
-    "sounds/sound4.mp3",
-    "sounds/sound5.mp3",
+    "sounds/sound6.mp3",
+    "sounds/sound7.mp3",
+    "sounds/sound8.mp3",
 ];
 
 const audioObjects = sounds.map(src => {
