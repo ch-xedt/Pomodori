@@ -47,5 +47,9 @@ POMODORI tracks your four-session cycle with the dots at the bottom so you alway
 <p align="center">
 <sub>###################################</sub>
 </p>
+
+---
+
 <p align="center">
+<sub>GNU GENERAL PUBLIC LICENSE V3</sub>
 </p>
