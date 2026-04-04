@@ -14,7 +14,7 @@ let timerId        = null;
 let startTime      = null;
 let startRemaining = 0;
 let sessionsTotal  = 0;
-let volume         = 0.8;
+let volume         = 0.85;
 let currentAudio = null;
 let timerWorker  = null;
 

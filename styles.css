@@ -40,14 +40,43 @@
     --text-invisible:       rgba(255, 255, 255, 0.20);
 }
 
+:focus {
+  outline: none;
+}
+
+:focus-visible {
+  outline: 2px solid #ffffff;
+  outline-offset: 3px;
+}
+
+html::-webkit-scrollbar, body::-webkit-scrollbar {
+    display: none;
+}
+
 *, *::before, *::after {
     box-sizing: border-box;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+a:visited {
+  color: inherit;
+}
+
+a:hover,
+a:active{
+  text-decoration: none;
+  color: inherit;
 }
 
 body {
     margin: 0;
     font-family: 'JetBrains Mono', monospace;
     user-select: none;
+    outline: none;
 }
 
 .screen {
@@ -217,6 +246,7 @@ body {
     color: var(--text-ghost);
     background: transparent;
     border: none;
+    border-radius: 8px;
     cursor: pointer;
     padding: 4px 6px;
     transition: color 0.2s;
@@ -276,6 +306,7 @@ body {
     right: 14px;
     background: transparent;
     border: none;
+    border-radius: 8px;
     cursor: pointer;
     color: var(--text-muted);
     padding: 4px;
