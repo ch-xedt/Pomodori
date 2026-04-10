@@ -47,6 +47,19 @@ const inVolume          = document.getElementById('setVolume');
 const volumeLabel       = document.getElementById('volumeLabel');
 
 
+const btnDarkmode = document.getElementById('btnDarkmode');
+
+function applyDarkMode(on) {
+    document.body.classList.toggle('dark', on);
+    localStorage.setItem('darkmode', on ? '1' : '0');
+}
+
+btnDarkmode.addEventListener('click', () => {
+    applyDarkMode(!document.body.classList.contains('dark'));
+});
+
+applyDarkMode(localStorage.getItem('darkmode') === '1');
+
 let audioUnlocked = false;
 
 function unlockAudio() {

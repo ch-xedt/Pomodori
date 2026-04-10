@@ -485,3 +485,56 @@ body {
     }
 }
 
+.btn-darkmode {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: rgba(0, 0, 0, 0.25);
+    border: 1px solid rgba(255, 255, 255, 0.20);
+    border-radius: 10px;
+    cursor: pointer;
+    color: rgba(255, 255, 255, 0.70);
+    padding: 7px 9px;
+    line-height: 0;
+    transition: color 0.2s, background 0.2s, border-color 0.2s;
+    z-index: 5;
+}
+.btn-darkmode:hover {
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.40);
+    border-color: rgba(255, 255, 255, 0.40);
+}
+
+body:not(.dark) .btn-darkmode .icon-moon { display: none; }
+body.dark       .btn-darkmode .icon-sun  { display: none; }
+
+body.dark {
+    --pomo-bg:        #1a1a1a;
+    --pomo-border:    rgba(255, 255, 255, 0.14);
+    --pomo-glow-top:  rgba(255, 255, 255, 0.06);
+    --pomo-glow-bot:  rgba(0, 0, 0, 0.20);
+    --pomo-glow:      rgba(255, 255, 255, 0.03);
+
+    --short-bg:       #131313;
+    --short-border:   rgba(255, 255, 255, 0.12);
+    --short-glow-top: rgba(255, 255, 255, 0.05);
+    --short-glow-bot: rgba(0, 0, 0, 0.20);
+    --short-glow:     rgba(255, 255, 255, 0.02);
+
+    --long-bg:        #161616;
+    --long-border:    rgba(255, 255, 255, 0.12);
+    --long-glow-top:  rgba(255, 255, 255, 0.05);
+    --long-glow-bot:  rgba(0, 0, 0, 0.20);
+    --long-glow:      rgba(255, 255, 255, 0.02);
+
+    --glass-bg:           rgba(255, 255, 255, 0.05);
+    --glass-bg-active:    rgba(255, 255, 255, 0.08);
+    --glass-bg-strong:    rgba(255, 255, 255, 0.12);
+    --glass-border-dim:   rgba(255, 255, 255, 0.10);
+    --glass-border-mid:   rgba(255, 255, 255, 0.18);
+    --glass-border-bright:rgba(255, 255, 255, 0.28);
+}
+
+body.dark .workplace            { background-color: var(--pomo-bg); }
+body.dark .workplace.mode-short { background-color: var(--short-bg); }
+body.dark .workplace.mode-long  { background-color: var(--long-bg); }
