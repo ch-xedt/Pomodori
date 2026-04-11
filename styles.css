@@ -40,6 +40,38 @@
     --text-invisible:       rgba(255, 255, 255, 0.20);
 }
 
+body.dark {
+    --pomo-bg:        #1d1d1d;
+    --pomo-border:    rgba(255, 255, 255, 0.14);
+    --pomo-glow-top:  rgba(255, 255, 255, 0.06);
+    --pomo-glow-bot:  rgba(0, 0, 0, 0.20);
+    --pomo-glow:      rgba(255, 255, 255, 0.03);
+
+    --short-bg:       #151515;
+    --short-border:   rgba(255, 255, 255, 0.12);
+    --short-glow-top: rgba(255, 255, 255, 0.05);
+    --short-glow-bot: rgba(0, 0, 0, 0.20);
+    --short-glow:     rgba(255, 255, 255, 0.02);
+
+    --long-bg:        #191919;
+    --long-border:    rgba(255, 255, 255, 0.12);
+    --long-glow-top:  rgba(255, 255, 255, 0.05);
+    --long-glow-bot:  rgba(0, 0, 0, 0.20);
+    --long-glow:      rgba(255, 255, 255, 0.02);
+
+    --glass-bg:           rgba(255, 255, 255, 0.05);
+    --glass-bg-active:    rgba(255, 255, 255, 0.08);
+    --glass-bg-strong:    rgba(255, 255, 255, 0.12);
+    --glass-border-dim:   rgba(255, 255, 255, 0.10);
+    --glass-border-mid:   rgba(255, 255, 255, 0.18);
+    --glass-border-bright:rgba(255, 255, 255, 0.28);
+}
+
+::selection {
+    background: rgba(155, 155, 155, 0.8);
+    color: #000000;
+}
+
 :focus {
   outline: none;
 }
@@ -507,34 +539,48 @@ body {
 
 body:not(.dark) .btn-darkmode .icon-moon { display: none; }
 body.dark       .btn-darkmode .icon-sun  { display: none; }
-
-body.dark {
-    --pomo-bg:        #1a1a1a;
-    --pomo-border:    rgba(255, 255, 255, 0.14);
-    --pomo-glow-top:  rgba(255, 255, 255, 0.06);
-    --pomo-glow-bot:  rgba(0, 0, 0, 0.20);
-    --pomo-glow:      rgba(255, 255, 255, 0.03);
-
-    --short-bg:       #131313;
-    --short-border:   rgba(255, 255, 255, 0.12);
-    --short-glow-top: rgba(255, 255, 255, 0.05);
-    --short-glow-bot: rgba(0, 0, 0, 0.20);
-    --short-glow:     rgba(255, 255, 255, 0.02);
-
-    --long-bg:        #161616;
-    --long-border:    rgba(255, 255, 255, 0.12);
-    --long-glow-top:  rgba(255, 255, 255, 0.05);
-    --long-glow-bot:  rgba(0, 0, 0, 0.20);
-    --long-glow:      rgba(255, 255, 255, 0.02);
-
-    --glass-bg:           rgba(255, 255, 255, 0.05);
-    --glass-bg-active:    rgba(255, 255, 255, 0.08);
-    --glass-bg-strong:    rgba(255, 255, 255, 0.12);
-    --glass-border-dim:   rgba(255, 255, 255, 0.10);
-    --glass-border-mid:   rgba(255, 255, 255, 0.18);
-    --glass-border-bright:rgba(255, 255, 255, 0.28);
-}
-
 body.dark .workplace            { background-color: var(--pomo-bg); }
 body.dark .workplace.mode-short { background-color: var(--short-bg); }
 body.dark .workplace.mode-long  { background-color: var(--long-bg); }
+
+
+* { cursor: none !important; }
+
+#cursor-dot {
+    width: 6px;
+    height: 6px;
+    background: #ffffff;
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.08s ease, width 0.2s ease, height 0.2s ease, opacity 0.2s ease;
+}
+
+#cursor-ring {
+    width: 36px;
+    height: 36px;
+    border: 1.5px solid rgba(255, 255, 255, 0.65);
+    border-radius: 50%;
+    position: fixed;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: width 0.2s ease, height 0.2s ease,
+    border-color 0.2s ease, opacity 0.2s ease;
+}
+
+body.cursor-hover #cursor-ring {
+    width: 48px;
+    height: 48px;
+    border-color: rgba(255, 255, 255, 0.35);
+    background: rgba(255, 255, 255, 0.06);
+}
+body.cursor-hover #cursor-dot {
+    width: 4px;
+    height: 4px;
+}
+
+body.cursor-out #cursor-dot,
+body.cursor-out #cursor-ring { opacity: 0; }

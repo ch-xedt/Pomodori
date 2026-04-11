@@ -232,3 +232,74 @@ updateDots();
 if ('Notification' in window && Notification.permission === 'default') {
     Notification.requestPermission(); 
 }
+
+const cursorDot  = document.getElementById('cursor-dot');
+const cursorRing = document.getElementById('cursor-ring');
+
+let mouseX = 0, mouseY = 0;
+let ringX  = 0, ringY  = 0;
+let velX   = 0, velY   = 0;
+
+const STIFFNESS = 0.1;
+const DAMPING   = 0.77;   
+
+document.addEventListener('mousemove', e => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    cursorDot.style.left = mouseX + 'px';
+    cursorDot.style.top  = mouseY + 'px';
+});
+
+document.addEventListener('mouseenter', () => document.body.classList.remove('cursor-out'));
+document.addEventListener('mouseleave', () => document.body.classList.add('cursor-out'));
+
+document.addEventListener('mousedown', () => {
+    cursorDot.style.transform  = 'translate(-50%, -50%) scale(0.6)';
+    cursorRing.style.transform = 'translate(-50%, -50%) scale(0.85)';
+});
+document.addEventListener('mouseup', () => {
+    cursorDot.style.transform  = 'translate(-50%, -50%) scale(1)';
+    cursorRing.style.transform = 'translate(-50%, -50%) scale(1)';
+});
+
+const hoverTargets = 'button, a, input, [role="button"]';
+document.querySelectorAll(hoverTargets).forEach(el => {
+    el.addEventListener('mouseenter', () => document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave', () => document.body.classList.remove('cursor-hover'));
+});
+
+function springLoop() {
+    const dx = mouseX - ringX;
+    const dy = mouseY - ringY;
+
+    velX = (velX + dx * STIFFNESS) * DAMPING;
+    velY = (velY + dy * STIFFNESS) * DAMPING;
+
+    ringX += velX;
+    ringY += velY;
+
+    cursorRing.style.left = ringX + 'px';
+    cursorRing.style.top  = ringY + 'px';
+
+    requestAnimationFrame(springLoop);
+}
+springLoop();
+
+
+let wakeLock = null;
+async function requestWakeLock() {
+    if ('wakeLock' in navigator) {
+        try {
+            wakeLock = await navigator.wakeLock.request('screen');
+        } catch (e) {
+            console.log('[[!!]] : Wake Lock abgelehnt:', e);
+        }
+    }
+}
+
+document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') {
+        requestWakeLock();
+    }
+});
+requestWakeLock();
